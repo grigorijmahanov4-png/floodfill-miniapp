@@ -1,0 +1,28 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "vite.config.js",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "status": 200
+    }
+  ],
+  "env": {
+    "BOT_TOKEN": "8426977971:AAGbXpLXNDhACgNk8k64fOob5mhnPAQ0a0U",
+    "ADMIN_ID": "6654415370",
+    "WEBHOOK_URL": "https://floodfill-miniapp.vercel.app/api/bot"
+  }
+}

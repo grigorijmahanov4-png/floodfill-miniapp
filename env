@@ -1,6 +1,0 @@
-# Telegram Bot
-BOT_TOKEN=8426977971:AAGbXpLXNDhACgNk8k64fOob5mhnPAQ0a0U
-ADMIN_ID=6654415370
-
-# Vercel
-WEBHOOK_URL=https://floodfill-miniapp.vercel.app/api/bot

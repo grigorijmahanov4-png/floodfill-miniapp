@@ -1,33 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static-build",
-      "config": { "distDir": "dist" }
-    },
-    {
-      "src": "api/**/*.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/assets/(.*)",
-      "dest": "/assets/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
-  ],
-  "env": {
-    "BOT_TOKEN": "8426977971:AAGbXpLXNDhACgNk8k64fOob5mhnPAQ0a0U",
-    "ADMIN_ID": "6654415370",
-    "WEBHOOK_URL": "https://floodfill-miniapp.vercel.app/api/bot"
-  }
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

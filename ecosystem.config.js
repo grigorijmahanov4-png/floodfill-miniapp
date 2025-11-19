@@ -1,1 +1,0 @@
-module.exports={apps:[{name:'floodfill-bot',script:'bot.js'}]};

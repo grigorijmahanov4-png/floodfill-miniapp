@@ -26,8 +26,6 @@ export default function TelegramMiniApp() {
     id: i,
     name: `Комната ${i + 1}`,
     difficulty: ["Легкая", "Средняя", "Сложная"][i % 3],
-    price: 0.1 + i * 0.05,
-    prizePool: 1 + i * 0.2,
     players: Math.floor(Math.random() * 10) + 1,
     maxPlayers: 16,
     locked: i > 0,
@@ -126,7 +124,6 @@ export default function TelegramMiniApp() {
     if (filledPercent === 1) {
       const winScore = 1000 + (maxMoves - m) * 10;
       setScore(winScore);
-      setBalance(balance + winScore / 10000);
       setGameState("won");
       return;
     }
@@ -134,7 +131,6 @@ export default function TelegramMiniApp() {
     if (m >= maxMoves) {
       const loseScore = Math.floor(filledPercent * 100);
       setScore(loseScore);
-      setBalance(balance + loseScore / 10000);
       setGameState("lost");
       return;
     }
@@ -144,8 +140,17 @@ export default function TelegramMiniApp() {
     return (
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-900 to-slate-900 text-white pb-32">
         <div className="bg-gradient-to-r from-cyan-600 to-blue-600 p-6 text-center border-b-4 border-cyan-400">
-          <div className="text-5xl font-bold mb-2">🎮 FLOOD FILL</div>
-          <div className="text-2xl text-yellow-300">💰 {balance.toFixed(4)} TON</div>
+          <div className="text-5xl font-bold mb-2">FLOOD FILL</div>
+          <div className="text-cyan-200">Выберите комнату для игры</div>
+        </div>
+
+        {/* КАРТИНКА */}
+        <div className="flex justify-center py-6">
+          <img 
+            src="/flood-fill-logo.png"
+            alt="Flood Fill Game"
+            className="w-40 h-40 drop-shadow-lg"
+          />
         </div>
 
         <div className="p-4 space-y-3 pb-40">
@@ -170,10 +175,9 @@ export default function TelegramMiniApp() {
                     {room.locked && <Lock size={18} />}
                     {room.name}
                   </div>
-                  <div className="text-sm text-gray-400">{room.difficulty}</div>
-                </div>
-                <div className="text-right">
-                  <div className="text-yellow-400 font-bold">{room.price.toFixed(2)} TON</div>
+                  <div className="text-sm text-gray-400">
+                    {room.difficulty} • {room.players}/{room.maxPlayers} игроков
+                  </div>
                 </div>
               </div>
             </button>
@@ -264,7 +268,7 @@ export default function TelegramMiniApp() {
                 {gameState === "won" ? "ПОБЕДА!" : "ПОРАЖЕНИЕ!"}
               </h2>
               <div className="text-4xl font-bold text-yellow-400 mb-2">{score}</div>
-              <div className="text-2xl text-green-400 mb-6">+{(score / 10000).toFixed(4)} TON</div>
+              <div className="text-2xl text-green-400 mb-6">+{(score / 10000).toFixed(4)}</div>
 
               <div className="flex gap-3">
                 <button

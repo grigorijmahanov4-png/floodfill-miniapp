@@ -17,7 +17,7 @@ export default function TelegramMiniApp() {
   const COLORS = ["#FF6B6B", "#4ECDC4", "#FFE66D", "#95E1D3", "#C7CEEA", "#FFDAB9"];
 
   const DIFFICULTY = {
-    "Легкая": { size: 10, moves: 20 },
+    "Лёгкая": { size: 10, moves: 20 },
     "Средняя": { size: 14, moves: 20 },
     "Сложная": { size: 18, moves: 20 },
   };
@@ -25,7 +25,7 @@ export default function TelegramMiniApp() {
   const ROOMS = Array.from({ length: 50 }, (_, i) => ({
     id: i,
     name: `Комната ${i + 1}`,
-    difficulty: ["Легкая", "Средняя", "Сложная"][i % 3],
+    difficulty: ["Лёгкая", "Средняя", "Сложная"][i % 3],
     players: Math.floor(Math.random() * 10) + 1,
     maxPlayers: 16,
     locked: i > 0,
@@ -138,22 +138,43 @@ export default function TelegramMiniApp() {
 
   if (screen === "rooms") {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-900 to-slate-900 text-white pb-32">
-        <div className="bg-gradient-to-r from-cyan-600 to-blue-600 p-6 text-center border-b-4 border-cyan-400">
-          <div className="text-5xl font-bold mb-2">FLOOD FILL</div>
-          <div className="text-cyan-200">Выберите комнату для игры</div>
+      <div className="min-h-screen bg-gradient-to-b from-slate-900 via-blue-900 to-slate-900 text-white pb-32 relative overflow-hidden">
+        {/* Фоновые светящиеся элементы */}
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-80 h-80 bg-cyan-500 rounded-full opacity-10 blur-3xl"></div>
+        <div className="absolute top-40 left-1/2 transform -translate-x-1/2 w-64 h-64 bg-blue-500 rounded-full opacity-5 blur-3xl"></div>
+
+        {/* Логотип */}
+        <div className="relative z-10 flex justify-center pt-8 pb-12">
+          <div className="text-center">
+            <div className="inline-block relative">
+              {/* Внешняя светящаяся граница */}
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-400 rounded-full blur-xl opacity-60" style={{ transform: 'scale(1.15)' }}></div>
+              
+              {/* Логотип с фоном */}
+              <div className="relative w-48 h-48 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center border-4 border-cyan-300 shadow-2xl" style={{ boxShadow: "0 0 40px rgba(34, 211, 238, 0.8)" }}>
+                <svg viewBox="0 0 200 200" className="w-32 h-32 drop-shadow-lg">
+                  {/* FLOOD */}
+                  <text x="100" y="50" fontSize="24" fontWeight="bold" textAnchor="middle" fill="white" fontFamily="Arial, sans-serif">FLOOD!</text>
+                  {/* FILL */}
+                  <text x="100" y="80" fontSize="24" fontWeight="bold" textAnchor="middle" fill="white" fontFamily="Arial, sans-serif">FILL!</text>
+                  
+                  {/* Контроллер */}
+                  {/* D-pad */}
+                  <rect x="45" y="100" width="12" height="35" rx="2" fill="#FFE66D"/>
+                  <rect x="32" y="113" width="35" height="12" rx="2" fill="#FFE66D"/>
+                  
+                  {/* Кнопки справа */}
+                  <circle cx="130" cy="115" r="6" fill="#FF6B6B"/>
+                  <circle cx="130" cy="135" r="6" fill="#FF6B6B"/>
+                  <circle cx="120" cy="125" r="6" fill="#4ECDC4"/>
+                  <circle cx="140" cy="125" r="6" fill="#4ECDC4"/>
+                </svg>
+              </div>
+            </div>
+          </div>
         </div>
 
-        {/* КАРТИНКА */}
-        <div className="flex justify-center py-6">
-          <img 
-            src="/flood-fill-logo.png"
-            alt="Flood Fill Game"
-            className="w-40 h-40 drop-shadow-lg"
-          />
-        </div>
-
-        <div className="p-4 space-y-3 pb-40">
+        <div className="p-4 space-y-3 pb-40 relative z-10">
           {ROOMS.map((room) => (
             <button
               key={room.id}
@@ -184,7 +205,7 @@ export default function TelegramMiniApp() {
           ))}
         </div>
 
-        <div className="fixed bottom-0 left-0 right-0 bg-slate-800 border-t border-cyan-500 flex justify-around py-3">
+        <div className="fixed bottom-0 left-0 right-0 bg-slate-800 border-t border-cyan-500 flex justify-around py-3 z-20">
           <NavIcon icon={Zap} label="Игры" active />
           <NavIcon icon={Plus} label="Скоро" />
           <NavIcon icon={User} label="Скоро" />
